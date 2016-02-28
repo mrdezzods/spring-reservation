@@ -1,10 +1,13 @@
 package org.neposoft.reservation;
 
 import org.hibernate.SessionFactory;
+import org.neposoft.reservation.domain.client.Client;
+import org.neposoft.reservation.domain.reservation.Reservation;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
 import org.neposoft.reservation.domain.restaurant.RestaurantRepository;
 import org.neposoft.reservation.domain.restaurant.RestaurantSQLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -42,7 +45,9 @@ public class AppConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setHibernateProperties(hibernateProperties());
         sessionFactory.setAnnotatedClasses(new Class[]{
-                Restaurant.class
+                Restaurant.class,
+                Client.class,
+                Reservation.class
         });
         return sessionFactory;
     }

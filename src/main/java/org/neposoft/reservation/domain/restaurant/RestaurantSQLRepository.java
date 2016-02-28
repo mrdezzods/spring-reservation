@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,9 +37,8 @@ public class RestaurantSQLRepository implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> paginate(Pageable pageable) {
+    public List<Restaurant> paginate() {
         return getSession().createQuery("from Restaurant")
-                .setMaxResults(4)
                 .list();
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by mrdezzods on 27/02/16.
  */
 @NoRepositoryBean
-public interface RestaurantRepository{
+public interface RestaurantRepository {
 
     List<Restaurant> getAll();
 
@@ -17,5 +17,5 @@ public interface RestaurantRepository{
 
     void add(Restaurant restaurant);
 
-    List<Restaurant> paginate(Pageable pageable);
+    List<Restaurant> paginate();
 }

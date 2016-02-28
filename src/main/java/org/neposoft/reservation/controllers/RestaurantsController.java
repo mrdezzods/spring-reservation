@@ -1,28 +1,28 @@
 package org.neposoft.reservation.controllers;
 
+import org.neposoft.reservation.domain.restaurant.Restaurant;
 import org.neposoft.reservation.domain.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.List;
 
 /**
  * Created by mrdezzods on 28/02/16.
  */
-@RestController
-@EnableWebMvc
+@Controller
 public class RestaurantsController {
 
     @Autowired
     RestaurantService restaurantService;
 
-    @RequestMapping(value = "/restaurants", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/restaurants")
     @ResponseBody
-    public Object paginate() {
-        PageRequest pageRequest = new PageRequest(1,5);
-        return restaurantService.paginate(pageRequest);
+    public List<Restaurant> paginate() {
+        List<Restaurant> restaurants = restaurantService.getAll();
+        System.out.println(restaurants.get(0).getReservations().get(0).getClient().getName());
+        return restaurants;
     }
 }

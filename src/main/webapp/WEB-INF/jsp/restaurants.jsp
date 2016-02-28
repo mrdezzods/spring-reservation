@@ -14,7 +14,16 @@
 <body>
 
 <c:forEach items="${restaurants}" var="restaurant">
-    <p>Restaurant: ${restaurant}</p>
+    <p>Restaurant: ${restaurant.name}</p>
+    <p>Addres: ${restaurant.address}</p>
+    <p>Reservations:</p>
+    <c:forEach items="${restaurant.reservationList}" var="reservation">
+        <p>${reservation.id}</p>
+        <p>${reservation.note}</p>
+        <p>${reservation.status}</p>
+        <p>Date: ${reservation.reservationFor}</p>
+        <p>Client: $${reservation.client.name}</p>
+    </c:forEach>
 </c:forEach>
 </body>
 </html>
