@@ -2,6 +2,8 @@ package org.neposoft.reservation;
 
 import org.hibernate.SessionFactory;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
+import org.neposoft.reservation.domain.restaurant.RestaurantRepository;
+import org.neposoft.reservation.domain.restaurant.RestaurantSQLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -20,12 +23,17 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
+@EnableWebMvc
 @PropertySource(value = {"WEB-INF/application.properties"})
 public class AppConfig {
 
     @Autowired
     private Environment environment;
 
+    @Bean
+    public RestaurantRepository restaurantRepository() {
+        return new RestaurantSQLRepository();
+    }
 
 
     @Bean
@@ -65,7 +73,6 @@ public class AppConfig {
         txManager.setSessionFactory(s);
         return txManager;
     }
-
 
 
 }
