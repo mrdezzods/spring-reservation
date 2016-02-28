@@ -19,6 +19,7 @@ public class Restaurant implements Serializable {
     @Id
     private Integer id;
 
+    private String slug;
 
     private String name;
 
@@ -50,6 +51,10 @@ public class Restaurant implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getSlug() {
+        return slug;
     }
 
     public String getLogo() {

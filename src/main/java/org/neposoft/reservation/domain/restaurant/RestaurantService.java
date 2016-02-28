@@ -22,4 +22,8 @@ public class RestaurantService {
 
         return repository.paginate();
     }
+
+    public Restaurant findBySlug(String slug){
+        return repository.findBySlug(slug);
+    }
 }

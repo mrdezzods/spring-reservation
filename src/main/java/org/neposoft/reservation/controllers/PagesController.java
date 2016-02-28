@@ -5,6 +5,7 @@
  */
 package org.neposoft.reservation.controllers;
 
+import org.neposoft.reservation.domain.AppFacade;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
 import org.neposoft.reservation.domain.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,13 @@ public class PagesController {
     @Autowired
     private RestaurantService service;
 
-    @RequestMapping(value = "/")
-    public ModelAndView homepage(PageRequest pageRequest) {
-        ModelAndView mv = new ModelAndView("restaurants");
-        List<Restaurant> restaurants = service.getAll();
-        mv.addObject("restaurants", restaurants);
+    @Autowired
+    private AppFacade facade;
 
+    @RequestMapping(value = "/")
+    public ModelAndView homepage() {
+        ModelAndView mv = new ModelAndView("homepage");
+        mv.addObject("popularRestaurants", facade.popularRestaurants());
         return mv;
     }
 
