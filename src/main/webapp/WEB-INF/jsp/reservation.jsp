@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,24 +18,37 @@
         <h2>Reservation in <c:out value="${restaurant.name}"></c:out></h2>
     </div>
     <div class="row">
+        <c:if test="${errors != null}">
+            <div class="alert alert-danger" style="margin-right: 15px;">
+                <span class="close pull-right" data-dismiss="alert">&times;</span>
+
+                <c:forEach items="${errors}" var="error">
+                    <p> ${error.defaultMessage}</p>
+                </c:forEach>
+            </div>
+        </c:if>
+
         <div class="col-sm-12 col-md-8">
-            <form action="#" class="form form-horizontal">
+            <form action="<c:url value="/reservations"/>" method="POST" class="form form-horizontal">
                 <div class="form-group">
                     <label class="control-label">Name</label>
-                    <input type="text" class="form-control">
+                    <input name="Client.name" value="<c:out value="${reservation.client.name}"/>" type="text"
+                           class="form-control">
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Email</label>
-                            <input type="email" class="form-control">
+                            <input name="Client.email" value="<c:out value="${reservation.client.email}"/>" type="email"
+                                   class="form-control">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Tel</label>
-                            <input type="tel" class="form-control">
+                            <input name="Client.tel" value="<c:out value="${reservation.client.tel}"/>" type="tel"
+                                   class="form-control">
                         </div>
                     </div>
                 </div>
@@ -42,15 +57,23 @@
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">People</label>
-                            <input type="number" max="12" min="1" class="form-control">
+                            <input type="number" value="<c:out value="${reservation.people}"/>" name="people" max="12"
+                                   min="1" class="form-control">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Date</label>
-                            <input type="date" class="form-control">
+
+                            <input name="reservation_for" value="<c:out value="${reservation.reservationFor}"/>"
+                                   type="date" class="form-control">
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Note</label>
+                    <textarea name="note" rows="3" cols="12" class="form-control"><c:out
+                            value="${reservation.note}"/></textarea>
                 </div>
 
 
@@ -82,7 +105,7 @@
         </div>
     </div>
     <div class="row">
-        <p class="text-center">&copy; Vijay Sapkota | 2016-2017 | 2TX/1</p>
+        <p class="text-center">&copy; <spring:message code="label.name"/>| 2016-2017 | 2TX/1</p>
     </div>
 </footer>
 

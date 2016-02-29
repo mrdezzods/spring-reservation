@@ -1,12 +1,15 @@
 package org.neposoft.reservation.domain.client;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.neposoft.reservation.domain.reservation.Reservation;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,8 +23,10 @@ public class Client implements Serializable {
     @Id
     private int id;
 
+    @NotEmpty
     private String name;
 
+    @Email
     private String email;
 
     private String tel;
@@ -48,5 +53,25 @@ public class Client implements Serializable {
 
     public List<Reservation> getReservations() {
         return reservations;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

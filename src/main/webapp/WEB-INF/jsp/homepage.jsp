@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
         </div>
     </div>
     <div class="row">
-        <p class="text-center">&copy; Vijay Sapkota | 2016-2017 | 2TX/1</p>
+        <p class="text-center">&copy; <spring:message code="label.name" />| 2016-2017 | 2TX/1</p>
     </div>
 </footer>
 

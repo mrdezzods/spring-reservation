@@ -1,6 +1,5 @@
 package org.neposoft.reservation.domain.restaurant;
 
-import javassist.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.neposoft.reservation.domain.DomainException;
@@ -18,7 +17,6 @@ import java.util.List;
 public class RestaurantSQLRepository implements RestaurantRepository {
 
     @Autowired
-
     private SessionFactory sessionFactory;
 
 

@@ -17,8 +17,10 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.sql.DataSource;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -27,8 +29,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableWebMvc
-@PropertySource(value = {"WEB-INF/application.properties"})
-
+@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Autowired
@@ -82,6 +83,13 @@ public class AppConfig {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(s);
         return txManager;
+    }
+
+    public CookieLocaleResolver localeResolver(){
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(Locale.forLanguageTag(""));
+
+        return resolver;
     }
 
 

@@ -6,15 +6,11 @@
 package org.neposoft.reservation.controllers;
 
 import org.neposoft.reservation.domain.AppFacade;
-import org.neposoft.reservation.domain.restaurant.Restaurant;
 import org.neposoft.reservation.domain.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * @author mrdezzods
@@ -37,7 +33,6 @@ public class PagesController {
     }
 
     @RequestMapping(value = "/contact")
-
     public String contact() {
         return "contact";
     }
