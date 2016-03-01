@@ -15,7 +15,7 @@
 <jsp:include page="partials/header.jsp"/>
 <div class="container">
     <div class="row">
-        <h2>Reservation in <c:out value="${restaurant.name}"></c:out></h2>
+        <h2>Reservation in ${reservation.restaurant.name}</h2>
     </div>
     <div class="row">
         <c:if test="${errors != null}">
@@ -29,7 +29,8 @@
         </c:if>
 
         <div class="col-sm-12 col-md-8">
-            <form action="<c:url value="/reservations"/>" method="POST" class="form form-horizontal">
+            <form action="<c:url value="/add-reservation/${reservation.restaurant.slug}"/>" method="POST"
+                  class="form form-horizontal">
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input name="Client.name" value="<c:out value="${reservation.client.name}"/>" type="text"
@@ -65,7 +66,8 @@
                         <div class="form-group">
                             <label class="control-label">Date</label>
 
-                            <input name="reservation_for" value="<c:out value="${reservation.reservationFor}"/>"
+                            <input name="reservationFor"
+                                   value="<c:out value="${reservation.reservationFor.toLocaleString()}"/>"
                                    type="date" class="form-control">
                         </div>
                     </div>

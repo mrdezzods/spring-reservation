@@ -27,7 +27,7 @@
                             ${restaurant.address}
                     </div>
                     <div class="panel-footer">
-                        <a href="/restaurants/${restaurant.slug}" class="btn btn-block btn-info">Reserve</a>
+                        <a href="/reservations/${restaurant.slug}" class="btn btn-block btn-info">Reserve</a>
                     </div>
                 </div>
             </div>

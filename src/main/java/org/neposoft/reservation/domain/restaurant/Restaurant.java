@@ -6,6 +6,7 @@ import org.neposoft.reservation.domain.reservation.Reservation;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,14 @@ public class Restaurant implements Serializable {
     public List<Reservation> getReservations() {
         return reservations;
     }
+
+    public void addReservation(Reservation reservation) {
+        if (this.reservations == null) {
+            this.reservations = new ArrayList<>();
+        }
+        this.reservations.add(reservation);
+    }
+
     //  private List<Reservation> reservationList;
 
     public Integer getId() {

@@ -33,4 +33,9 @@ public class RestaurantFakeRepository implements RestaurantRepository {
     public Restaurant findBySlug(String slug) {
         return null;
     }
+
+    @Override
+    public Restaurant findById(Integer restaurantId) {
+        return null;
+    }
 }

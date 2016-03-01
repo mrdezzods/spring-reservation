@@ -28,11 +28,6 @@ public class RestaurantsController {
         return restaurants;
     }
 
-    @RequestMapping(value = "/restaurants/{slug}")
-    public ModelAndView show(@PathVariable String slug) {
-        ModelAndView mv = new ModelAndView("reservation");
-        mv.addObject("restaurant", restaurantService.findBySlug(slug));
-        return mv;
-    }
+
 
 }

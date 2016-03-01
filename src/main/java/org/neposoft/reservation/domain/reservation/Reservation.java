@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -43,6 +44,8 @@ public class Reservation implements Serializable {
     @Column(name = "reservation_for")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date reservationFor;
+
+    private String reservationAt;
 
     @Size(min = 5, max = 30)
     private String note;
@@ -105,5 +108,13 @@ public class Reservation implements Serializable {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
+    }
+
+    public String getReservationAt() {
+        return reservationAt;
+    }
+
+    public void setReservationAt(String reservationAt) {
+        this.reservationAt = reservationAt;
     }
 }

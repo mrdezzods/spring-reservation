@@ -56,6 +56,20 @@ public class RestaurantSQLRepository implements RestaurantRepository {
         return restaurants.get(0);
     }
 
+    @Override
+    public Restaurant findById(Integer restaurantId) {
+        List<Restaurant> restaurants = getSession().createQuery("from Restaurant where  id = :id")
+                .setParameter("id", restaurantId)
+                .setMaxResults(1)
+                .list();
+
+        if (restaurants.size() == 0) {
+            throw new DomainException("Restaurant not found!");
+        }
+
+        return restaurants.get(0);
+    }
+
     private Session getSession() {
         return sessionFactory.openSession();
     }

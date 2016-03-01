@@ -20,4 +20,6 @@ public interface RestaurantRepository {
     List<Restaurant> paginate();
 
     Restaurant findBySlug(String slug);
+
+    Restaurant findById(Integer restaurantId);
 }

@@ -26,4 +26,8 @@ public class RestaurantService {
     public Restaurant findBySlug(String slug){
         return repository.findBySlug(slug);
     }
+
+    public Restaurant findById(Integer restaurantId) {
+        return repository.findById(restaurantId);
+    }
 }
