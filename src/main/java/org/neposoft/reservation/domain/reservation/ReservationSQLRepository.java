@@ -1,19 +1,32 @@
 package org.neposoft.reservation.domain.reservation;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.neposoft.reservation.domain.DomainException;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by mrdezzods on 01/03/16.
- */
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 @Repository
 public class ReservationSQLRepository implements ReservationRepository {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private EntityManagerFactory factory;
+    private EntityManager manager;
+
+    public void openConnection() {
+        factory = Persistence.createEntityManagerFactory("reservation");
+        manager = factory.createEntityManager();
+    }
+
+    public void closeConnection() {
+        try {
+            manager.close();
+            factory.close();
+        } catch (Exception e) {
+            throw new DomainException(e.getMessage(), e);
+        }
+    }
 
     @Override
     public void addReservation(Restaurant restaurant, Reservation reservation) {
@@ -21,11 +34,13 @@ public class ReservationSQLRepository implements ReservationRepository {
     }
 
     @Override
+    public void addReservation(Reservation reservation) {
+
+    }
+
+    @Override
     public Reservation get(Integer reservationId) {
         return null;
     }
 
-    private Session getSession() {
-        return sessionFactory.openSession();
-    }
 }

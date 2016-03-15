@@ -1,12 +1,12 @@
 package org.neposoft.reservation.domain.restaurant;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.neposoft.reservation.domain.DomainException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 /**
@@ -16,13 +16,29 @@ import java.util.List;
 @Primary
 public class RestaurantSQLRepository implements RestaurantRepository {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private EntityManagerFactory factory;
+    private EntityManager manager;
+
+    public void openConnection() {
+        factory = Persistence.createEntityManagerFactory("reservation");
+        manager = factory.createEntityManager();
+    }
+
+    public void closeConnection() {
+        try {
+            manager.close();
+            factory.close();
+        } catch (Exception e) {
+            throw new DomainException(e.getMessage(), e);
+        }
+    }
 
 
     public List<Restaurant> getAll() {
-        return (List<Restaurant>) getSession().createQuery("from Restaurant")
-                .list();
+        openConnection();
+        List results = manager.createQuery("from Restaurant").getResultList();
+        return (List<Restaurant>) results;
 
     }
 
@@ -36,42 +52,35 @@ public class RestaurantSQLRepository implements RestaurantRepository {
 
     }
 
-    @Override
-    public List<Restaurant> paginate() {
-        return getSession().createQuery("from Restaurant")
-                .list();
-    }
 
     @Override
     public Restaurant findBySlug(String slug) {
-        List<Restaurant> restaurants = getSession().createQuery("from Restaurant where  slug = :slug")
-                .setParameter("slug", slug)
-                .setMaxResults(1)
-                .list();
+        try {
+            Restaurant r = (Restaurant) manager.createQuery("select r from Restaurant r where r.slug = :slug")
+                    .setParameter("slug", slug)
+                    .getSingleResult();
 
-        if (restaurants.size() == 0) {
-            throw new DomainException("Restaurant not found!");
+            if (r == null) {
+                throw new DomainException("Restaurant not found");
+            }
+            return r;
+        } catch (Exception ex) {
+            throw new DomainException(ex.getMessage(), ex);
         }
 
-        return restaurants.get(0);
     }
 
     @Override
     public Restaurant findById(Integer restaurantId) {
-        List<Restaurant> restaurants = getSession().createQuery("from Restaurant where  id = :id")
-                .setParameter("id", restaurantId)
-                .setMaxResults(1)
-                .list();
+        try {
+            Restaurant r = (Restaurant) manager.createQuery("select r from Restaurant r where r.id = :id")
+                    .setParameter("id", restaurantId)
+                    .getSingleResult();
 
-        if (restaurants.size() == 0) {
-            throw new DomainException("Restaurant not found!");
+            return r;
+        } catch (Exception ex) {
+            throw new DomainException(ex.getMessage(), ex);
         }
-
-        return restaurants.get(0);
-    }
-
-    private Session getSession() {
-        return sessionFactory.openSession();
     }
 
 

@@ -17,7 +17,6 @@ public interface RestaurantRepository {
 
     void add(Restaurant restaurant);
 
-    List<Restaurant> paginate();
 
     Restaurant findBySlug(String slug);
 

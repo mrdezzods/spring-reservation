@@ -28,7 +28,7 @@ public class PagesController {
     @RequestMapping(value = "/")
     public ModelAndView homepage() {
         ModelAndView mv = new ModelAndView("homepage");
-        mv.addObject("popularRestaurants", facade.popularRestaurants());
+        mv.addObject("popularRestaurants", facade.getAllRestaurants());
         return mv;
     }
 

@@ -4,7 +4,6 @@ import org.neposoft.reservation.domain.reservation.Reservation;
 import org.neposoft.reservation.domain.reservation.ReservationService;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
 import org.neposoft.reservation.domain.restaurant.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,33 +12,37 @@ import java.util.List;
  */
 public class AppFacade {
 
-    @Autowired
     private RestaurantService restaurantService;
 
-    @Autowired
     public ReservationService reservationService;
 
+    public AppFacade(Env env){
+
+    }
     public AppFacade() {
+        reservationService = new ReservationService();
+        restaurantService = new RestaurantService();
     }
 
 
-    public List<Restaurant> popularRestaurants() {
+    public List<Restaurant> getAllRestaurants() {
         return restaurantService.getAll();
     }
 
-    public void addReservation(Integer restaurantId, Reservation reservation) {
-        reservationService.addReservation(restaurantService.findById(restaurantId), reservation);
+
+    public void addReservation(Reservation reservation) {
+        reservationService.addReservation(reservation);
     }
 
     public Restaurant findRestaurantBySlug(String slug) {
         return restaurantService.findBySlug(slug);
     }
 
-    public void addReservationWithSlug(String slug, Reservation reservation) {
-        reservationService.addReservation(restaurantService.findBySlug(slug), reservation);
-    }
-
     public Reservation getReservation(Integer reservationId) {
         return reservationService.get(reservationId);
+    }
+
+    public Restaurant findRestaurantById(int i) {
+        return restaurantService.findById(i);
     }
 }

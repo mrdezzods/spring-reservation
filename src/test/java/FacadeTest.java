@@ -1,27 +1,47 @@
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.neposoft.reservation.AppConfig;
 import org.neposoft.reservation.domain.AppFacade;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.neposoft.reservation.domain.DomainException;
+import org.neposoft.reservation.domain.restaurant.Restaurant;
+
+import java.util.List;
 
 /**
  * Created by mrdezzods on 28/02/16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class})
-@ComponentScan("org.neposoft")
+
 public class FacadeTest extends TestCase {
 
-    @Autowired
     AppFacade facade;
+
+    @Before
+    public void setUp() {
+        facade = new AppFacade();
+    }
 
     @Test
     public void test_if_facade_returns_restaurants() {
-        assertNotNull(facade.popularRestaurants());
-        //  assertNotNull(facade);
+        List restaurants = facade.getAllRestaurants();
+        assertNotNull(restaurants);
     }
+
+    @Test
+    public void test_if_facade_returns_restaurant_by_slug() {
+        Restaurant r = facade.findRestaurantBySlug("nepali-house");
+        assertNotNull(r);
+    }
+
+    @Test(expected = Exception.class)
+    public void test_if_null_slug_throws_exception() {
+        Restaurant r = facade.findRestaurantBySlug(null);
+    }
+
+
+    @Test(expected = DomainException.class)
+    public void test_if_invalid_id_throws_exception() {
+        Restaurant r = facade.findRestaurantById(-22);
+    }
+
+
 }

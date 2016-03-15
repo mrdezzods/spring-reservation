@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
                             <label class="control-label">Date</label>
 
                             <input name="reservationFor"
-                                   value="<c:out value="${reservation.reservationFor.toLocaleString()}"/>"
+                                   value="<fmt:formatDate pattern="yyyy-MM-dd" value="${reservation.reservationFor}" />"
                                    type="date" class="form-control">
                         </div>
                     </div>

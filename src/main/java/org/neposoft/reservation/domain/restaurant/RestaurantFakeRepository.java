@@ -24,10 +24,6 @@ public class RestaurantFakeRepository implements RestaurantRepository {
 
     }
 
-    @Override
-    public List<Restaurant> paginate() {
-        return null;
-    }
 
     @Override
     public Restaurant findBySlug(String slug) {

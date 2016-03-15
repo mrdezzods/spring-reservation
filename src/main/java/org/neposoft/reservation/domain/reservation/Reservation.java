@@ -39,15 +39,13 @@ public class Reservation implements Serializable {
     @NotNull(message = "validation.reservation.people.notnull")
     @Max(value = 10, message = "validation.reservation.people.max")
     @Min(value = 1, message = "validation.reservation.people.min")
-    private int people;
+    private int people = 2;
 
     @Column(name = "reservation_for")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date reservationFor;
 
     private String reservationAt;
 
-    @Size(min = 5, max = 30)
     private String note;
 
     @Column(name = "status")

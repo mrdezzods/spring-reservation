@@ -44,9 +44,9 @@ public class ReservationsController {
             return mv;
         }
 
-        reservation.setReservationFor(new Date(2016, 9, 32));
+        facade.addReservation(reservation);
 
-        mv.setViewName("redirect:/reservation-success" + reservation.getId());
+        mv.setViewName("redirect:/reservation-success-" + reservation.getId());
 
         return mv;
     }
@@ -61,9 +61,10 @@ public class ReservationsController {
     }
 
     @RequestMapping(value = "/reservation-success-{id}", method = RequestMethod.GET)
-    public ModelAndView reservationSuccess(@PathVariable Integer reservationId) {
+    public ModelAndView reservationSuccess(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView("reservation-success");
-        Reservation reservation = facade.getReservation(reservationId);
+        Reservation reservation = facade.getReservation(id);
+        mv.addObject("reservation", reservation);
 
         return mv;
     }
@@ -72,11 +73,10 @@ public class ReservationsController {
     @InitBinder
     private void dateBinder(WebDataBinder binder) {
         //The date format to parse or output your dates
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         //Create a new CustomDateEditor
         CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
         //Register it as custom editor for the Date type
-        binder.registerCustomEditor(Calendar.class, editor);
+        binder.registerCustomEditor(Date.class, editor);
     }
-
 }

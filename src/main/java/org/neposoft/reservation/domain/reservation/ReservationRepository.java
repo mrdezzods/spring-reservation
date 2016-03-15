@@ -7,6 +7,6 @@ import org.neposoft.reservation.domain.restaurant.Restaurant;
  */
 public interface ReservationRepository {
     void addReservation(Restaurant restaurantId, Reservation reservation);
-
+    void addReservation(Reservation reservation);
     Reservation get(Integer reservationId);
 }
