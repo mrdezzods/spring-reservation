@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.neposoft.reservation.domain.reservation.Reservation;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
