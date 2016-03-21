@@ -4,9 +4,9 @@
              version="1.0">
     <persistence-unit name="reservation" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>org.neposoft.reservation.domain.restaurant.Restaurant</class>
-        <class>org.neposoft.reservation.domain.reservation.Reservation</class>
-        <class>org.neposoft.reservation.domain.client.Client</class>
+        <class>domain.Restaurant</class>
+        <class>domain.Reservation</class>
+        <class>domain.Client</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

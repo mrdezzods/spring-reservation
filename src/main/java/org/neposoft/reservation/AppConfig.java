@@ -1,12 +1,10 @@
 package org.neposoft.reservation;
 
+import domain.AppFacade;
+import domain.Client;
+import domain.Reservation;
+import domain.Restaurant;
 import org.hibernate.SessionFactory;
-import org.neposoft.reservation.domain.AppFacade;
-import org.neposoft.reservation.domain.client.Client;
-import org.neposoft.reservation.domain.reservation.Reservation;
-import org.neposoft.reservation.domain.restaurant.Restaurant;
-import org.neposoft.reservation.domain.restaurant.RestaurantRepository;
-import org.neposoft.reservation.domain.restaurant.RestaurantSQLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,14 +33,10 @@ public class AppConfig {
     @Autowired
     private Environment environment;
 
-    @Bean
-    public RestaurantRepository restaurantRepository() {
-        return new RestaurantSQLRepository();
-    }
 
     @Bean
     public AppFacade facade() {
-        return new AppFacade();
+        return new AppFacade(environment.getProperty("app.database_type"));
     }
 
     @Bean

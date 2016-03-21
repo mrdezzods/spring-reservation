@@ -5,8 +5,8 @@
  */
 package org.neposoft.reservation.controllers;
 
-import org.neposoft.reservation.domain.AppFacade;
-import org.neposoft.reservation.domain.restaurant.RestaurantService;
+
+import domain.AppFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PagesController {
 
-
-    @Autowired
-    private RestaurantService service;
 
     @Autowired
     private AppFacade facade;
