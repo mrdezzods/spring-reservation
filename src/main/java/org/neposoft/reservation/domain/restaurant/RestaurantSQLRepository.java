@@ -56,6 +56,7 @@ public class RestaurantSQLRepository implements RestaurantRepository {
     @Override
     public Restaurant findBySlug(String slug) {
         try {
+            openConnection();
             Restaurant r = (Restaurant) manager.createQuery("select r from Restaurant r where r.slug = :slug")
                     .setParameter("slug", slug)
                     .getSingleResult();
@@ -66,6 +67,8 @@ public class RestaurantSQLRepository implements RestaurantRepository {
             return r;
         } catch (Exception ex) {
             throw new DomainException(ex.getMessage(), ex);
+        } finally {
+            closeConnection();
         }
 
     }
@@ -73,6 +76,7 @@ public class RestaurantSQLRepository implements RestaurantRepository {
     @Override
     public Restaurant findById(Integer restaurantId) {
         try {
+            openConnection();
             Restaurant r = (Restaurant) manager.createQuery("select r from Restaurant r where r.id = :id")
                     .setParameter("id", restaurantId)
                     .getSingleResult();
@@ -80,6 +84,8 @@ public class RestaurantSQLRepository implements RestaurantRepository {
             return r;
         } catch (Exception ex) {
             throw new DomainException(ex.getMessage(), ex);
+        } finally {
+            closeConnection();
         }
     }
 

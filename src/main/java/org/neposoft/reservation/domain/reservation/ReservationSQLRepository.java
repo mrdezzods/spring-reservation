@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 @Repository
@@ -28,19 +29,38 @@ public class ReservationSQLRepository implements ReservationRepository {
         }
     }
 
-    @Override
-    public void addReservation(Restaurant restaurant, Reservation reservation) {
-        restaurant.addReservation(reservation);
-    }
 
     @Override
     public void addReservation(Reservation reservation) {
-
+        EntityTransaction tx = null;
+        try {
+            openConnection();
+            tx = manager.getTransaction();
+            tx.begin();
+            manager.persist(reservation);
+            tx.commit();
+        } catch (Exception ex) {
+            throw new DomainException(ex.getMessage(), ex);
+        } finally {
+            tx.rollback();
+            closeConnection();
+        }
     }
 
     @Override
     public Reservation get(Integer reservationId) {
-        return null;
+        try {
+            openConnection();
+            Reservation r = (Reservation) manager.createQuery("select r from Reservation r where r.id = :id")
+                    .setParameter("id", reservationId)
+                    .getSingleResult();
+
+            return r;
+        } catch (Exception ex) {
+            throw new DomainException(ex.getMessage(), ex);
+        } finally {
+            closeConnection();
+        }
     }
 
 }

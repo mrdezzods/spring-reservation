@@ -4,15 +4,12 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.neposoft.reservation.domain.client.Client;
 import org.neposoft.reservation.domain.restaurant.Restaurant;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,14 +20,15 @@ import java.util.Date;
 public class Reservation implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
     private Restaurant restaurant;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     @JsonBackReference
     @JsonProperty(value = "Client")
@@ -44,7 +42,6 @@ public class Reservation implements Serializable {
     @Column(name = "reservation_for")
     private Date reservationFor;
 
-    private String reservationAt;
 
     private String note;
 
@@ -106,13 +103,5 @@ public class Reservation implements Serializable {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
-    }
-
-    public String getReservationAt() {
-        return reservationAt;
-    }
-
-    public void setReservationAt(String reservationAt) {
-        this.reservationAt = reservationAt;
     }
 }
