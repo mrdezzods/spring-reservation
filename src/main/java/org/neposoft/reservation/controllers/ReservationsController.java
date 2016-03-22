@@ -9,12 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,5 +79,26 @@ public class ReservationsController {
         CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
         //Register it as custom editor for the Date type
         binder.registerCustomEditor(Date.class, editor);
+    }
+
+
+    @RequestMapping(value = "/reservations-admin", method = RequestMethod.GET)
+    public ModelAndView reservationsAdmin(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("reservations-admin");
+        if (session.getAttribute("user") == null) {
+            //   modelAndView.setViewName("redirect:/login");
+        }
+
+        modelAndView.addObject("reservations", facade.getAllReservations());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete-reservation", method = RequestMethod.POST)
+    public ModelAndView deleteReservation(@RequestParam("reservation_id") Integer reservationId) {
+        ModelAndView modelAndView = new ModelAndView();
+        facade.deleteReservation(reservationId);
+        modelAndView.setViewName("redirect:/reservations-admin");
+
+        return modelAndView;
     }
 }

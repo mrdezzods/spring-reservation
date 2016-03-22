@@ -86,16 +86,6 @@
 
             </form>
         </div>
-        <div class="hidden-sm col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title">Extra info</div>
-                </div>
-                <div class="panel-body">
-                    bla bla bla
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <footer>

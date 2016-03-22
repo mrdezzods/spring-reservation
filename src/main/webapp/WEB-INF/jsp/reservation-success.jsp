@@ -28,7 +28,6 @@
                     value="${reservation.restaurant.name}"/></p>
             <p><spring:message code="label.reservation.for"></spring:message>
                 : ${reservation.reservationFor.toGMTString()}</p>
-            <p><spring:message code="label.reservation.for.time"></spring:message> : ${reservation.reservationAt} </p>
             <p><spring:message code="label.client.name"></spring:message> : ${reservation.client.name}</p>
             <p><spring:message code="label.reservation.note"></spring:message> : ${reservation.note}</p>
         </div>
