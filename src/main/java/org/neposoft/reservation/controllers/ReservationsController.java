@@ -30,20 +30,22 @@ public class ReservationsController {
     /**
      * @param reservation
      * @param bindingResult
-     * @param model         Without this, validation doesn't work
      * @return
      */
     @RequestMapping(value = "/add-reservation/{slug}", method = RequestMethod.POST)
-    public ModelAndView put(@Valid Reservation reservation, BindingResult bindingResult, Model model, @PathVariable String slug) {
+    public ModelAndView put(@Valid Reservation reservation, BindingResult bindingResult,  @PathVariable String slug) {
         ModelAndView mv = new ModelAndView("reservation");
-
-        reservation.setRestaurant(facade.findRestaurantBySlug(slug));
 
         if (bindingResult.hasErrors()) {
             mv.addObject("errors", bindingResult.getAllErrors());
             mv.addObject("reservation", reservation);
+            reservation.setRestaurant(facade.findRestaurantBySlug(slug));
+            mv.addObject("reservation", reservation);
             return mv;
         }
+
+        reservation.setRestaurant(facade.findRestaurantBySlug(slug));
+
 
         facade.addReservation(reservation);
 
@@ -97,6 +99,15 @@ public class ReservationsController {
     public ModelAndView deleteReservation(@RequestParam("reservation_id") Integer reservationId) {
         ModelAndView modelAndView = new ModelAndView();
         facade.deleteReservation(reservationId);
+        modelAndView.setViewName("redirect:/reservations-admin");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/accept-reservation", method = RequestMethod.POST)
+    public ModelAndView acceptReservation(@RequestParam("reservation_id") Integer reservationId) {
+        ModelAndView modelAndView = new ModelAndView();
+        facade.acceptReservation(reservationId);
         modelAndView.setViewName("redirect:/reservations-admin");
 
         return modelAndView;

@@ -30,8 +30,8 @@
         </c:if>
 
         <div class="col-sm-12 col-md-8">
-            <form action="<c:url value="/add-reservation/${reservation.restaurant.slug}"/>" method="POST"
-                  class="form form-horizontal">
+            <form:form action="/add-reservation/${reservation.restaurant.slug}" method="post"
+                       cssClass="form form-horizontal">
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input name="Client.name" value="<c:out value="${reservation.client.name}"/>" type="text"
@@ -59,8 +59,18 @@
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">People</label>
-                            <input type="number" value="<c:out value="${reservation.people}"/>" name="people" max="12"
-                                   min="1" class="form-control">
+                            <select class="form-control" name="people" selected="<c:out value="${reservation.people}"/>">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -81,9 +91,9 @@
 
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="Make Reservation!">
+                    <input type="submit" class="btn btn-success" value="<spring:message code="label.make_reservation"/>">
                 </div>
-
+            </form:form>
             </form>
         </div>
     </div>
