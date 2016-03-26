@@ -23,6 +23,7 @@
         <glassfish.httpport>4848</glassfish.httpport>
         <glassfish.adminport>8080</glassfish.adminport>
 
+
     </properties>
 
     <dependencies>
@@ -219,6 +220,7 @@
                         <httpPort>${glassfish.httpport}</httpPort>
                         <adminPort>${glassfish.adminport}</adminPort>
                     </domain>
+
                     <components>
                         <component>
                             <name>${project.name}</name>
@@ -226,6 +228,7 @@
                         </component>
                     </components>
                     <debug>true</debug>
+
                     <terse>false</terse>
                     <echo>true</echo>
                 </configuration>
