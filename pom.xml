@@ -15,6 +15,14 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.0.1.RELEASE</spring.version>
+
+        <glassfish.home>/opt/glassfish4</glassfish.home>
+        <glassfish.user>admin</glassfish.user>
+        <glassfish.passfile>/home/glassfish-password.txt</glassfish.passfile>
+        <glassfish.domain>domain1</glassfish.domain>
+        <glassfish.httpport>4848</glassfish.httpport>
+        <glassfish.adminport>8080</glassfish.adminport>
+
     </properties>
 
     <dependencies>
@@ -197,6 +205,33 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+                    <user>${glassfish.user}</user>
+                    <passwordFile>${glassfish.passfile}</passwordFile>
+                    <domain>
+                        <name>${glassfish.domain}</name>
+                        <httpPort>${glassfish.httpport}</httpPort>
+                        <adminPort>${glassfish.adminport}</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.name}</name>
+                            <artifact>target/${project.name}-${project.version}.war</artifact>
+                        </component>
+                    </components>
+                    <debug>true</debug>
+                    <terse>false</terse>
+                    <echo>true</echo>
+                </configuration>
+            </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
