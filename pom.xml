@@ -21,7 +21,7 @@
         <glassfish.passfile>/home/glassfish-password.txt</glassfish.passfile>
         <glassfish.domain>domain1</glassfish.domain>
         <glassfish.httpport>4848</glassfish.httpport>
-        <glassfish.adminport>8080</glassfish.adminport>
+        <glassfish.adminport>4848</glassfish.adminport>
 
 
     </properties>
@@ -214,7 +214,7 @@
                 <configuration>
                     <glassfishDirectory>${glassfish.home}</glassfishDirectory>
                     <user>${glassfish.user}</user>
-                    <passwordFile>${glassfish.passfile}</passwordFile>
+              <passwordFile>${glassfish.passfile}</passwordFile>
                     <domain>
                         <name>${glassfish.domain}</name>
                         <httpPort>${glassfish.httpport}</httpPort>

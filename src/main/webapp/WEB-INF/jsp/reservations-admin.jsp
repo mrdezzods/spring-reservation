@@ -6,10 +6,10 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.js"></script>
-    <title>JSP Page</title>
+    <link rel="stylesheet" href="<spring:url value="/assets/css/bootstrap.css"></spring:url>">
+    <script src="<spring:url value="/assets/js/jquery.js"></spring:url>"></script>
+    <script src="<spring:url value="/assets/js/bootstrap.js"></spring:url>"></script>
+    <title>Reservation</title>
 </head>
 <body>
 <jsp:include page="partials/header.jsp"/>
@@ -64,14 +64,6 @@
     </div>
 </div>
 <footer>
-    <div class="row">
-        <div class="col-xs-12 col-sm-4">
-            <ul class="nav nav-pills">
-                <li class="item"><a href="#">Contact</a></li>
-                <li><a href="#">Privacy</a></li>
-            </ul>
-        </div>
-    </div>
     <div class="row">
         <p class="text-center">&copy; <spring:message code="label.name"/>| 2016-2017 | 2TX/1</p>
     </div>
