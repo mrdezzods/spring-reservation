@@ -30,7 +30,8 @@
         </c:if>
 
         <div class="col-sm-12 col-md-8">
-            <form:form action="/add-reservation/${reservation.restaurant.slug}" method="post"
+            <spring:url value="/add-reservation/${reservation.restaurant.slug}" var="formurl"></spring:url>
+            <form:form action="${formurl}" method="post"
                        cssClass="form form-horizontal">
                 <div class="form-group">
                     <label class="control-label">Name</label>
@@ -59,7 +60,8 @@
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">People</label>
-                            <select class="form-control" name="people" selected="<c:out value="${reservation.people}"/>">
+                            <select class="form-control" name="people"
+                                    selected="<c:out value="${reservation.people}"/>">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -91,7 +93,8 @@
 
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="<spring:message code="label.make_reservation"/>">
+                    <input type="submit" class="btn btn-success"
+                           value="<spring:message code="label.make_reservation"/>">
                 </div>
             </form:form>
             </form>

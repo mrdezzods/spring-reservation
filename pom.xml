@@ -228,7 +228,6 @@
                         </component>
                     </components>
                     <debug>true</debug>
-
                     <terse>false</terse>
                     <echo>true</echo>
                 </configuration>

@@ -41,14 +41,14 @@
                     <td><c:out value="${reservation.note}"></c:out></td>
                     <td><c:out value="${reservation.status}"></c:out></td>
                     <td>
-                        <form method="POST" action="/accept-reservation">
+                        <form method="POST" action="<spring:url value="/accept-reservation"></spring:url>">
                             <input name="reservation_id" type="hidden"
                                    value="<c:out value="${reservation.id}"></c:out>">
                             <input class="btn btn-success" type="submit"
                                    value="<spring:message code="label.accept-reservation"></spring:message>">
                         </form>
 
-                        <form method="POST" action="/delete-reservation">
+                        <form method="POST" action="<spring:url value="/delete-reservation"></spring:url>">
                             <input name="reservation_id" type="hidden"
                                    value="<c:out value="${reservation.id}"></c:out>">
                             <input class="btn btn-danger" type="submit"
