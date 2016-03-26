@@ -213,7 +213,7 @@
                 <configuration>
                     <glassfishDirectory>${glassfish.home}</glassfishDirectory>
                     <user>${glassfish.user}</user>
-                    <passwordFile>${glassfish.passfile}</passwordFile>
+                    <password>sapkota</password>
                     <domain>
                         <name>${glassfish.domain}</name>
                         <httpPort>${glassfish.httpport}</httpPort>
