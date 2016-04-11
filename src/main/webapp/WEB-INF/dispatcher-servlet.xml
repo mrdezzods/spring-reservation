@@ -15,8 +15,9 @@
     <mvc:resources mapping="/assets/**" location="/assets/"/>
     <context:component-scan base-package="org.neposoft.reservation"/>
 
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
 
     <mvc:interceptors>
         <bean id="localeChangeInterceptor"
@@ -29,7 +30,6 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
-
 
 
 </beans>
