@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,6 +25,7 @@ public class RestaurantsController {
     public Set<Restaurant> paginate() {
         return facade.getAllRestaurants();
     }
+
 
 
 }

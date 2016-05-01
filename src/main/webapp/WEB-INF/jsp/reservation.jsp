@@ -29,29 +29,27 @@
             </div>
         </c:if>
 
+
         <div class="col-sm-12 col-md-8">
-            <spring:url value="/add-reservation/${reservation.restaurant.slug}" var="formurl"></spring:url>
+            <spring:url value="/reservations/${command.restaurant.slug}" var="formurl"></spring:url>
             <form:form action="${formurl}" method="post"
                        cssClass="form form-horizontal">
                 <div class="form-group">
                     <label class="control-label">Name</label>
-                    <input name="Client.name" value="<c:out value="${reservation.client.name}"/>" type="text"
-                           class="form-control">
+                    <form:input path="client.name" cssClass="form-control"></form:input>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Email</label>
-                            <input name="Client.email" value="<c:out value="${reservation.client.email}"/>" type="email"
-                                   class="form-control">
+                            <form:input type="email" path="client.email" cssClass="form-control"></form:input>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Tel</label>
-                            <input name="Client.tel" value="<c:out value="${reservation.client.tel}"/>" type="tel"
-                                   class="form-control">
+                            <form:input type="tel" path="client.tel" cssClass="form-control"></form:input>
                         </div>
                     </div>
                 </div>
@@ -60,8 +58,7 @@
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label class="control-label">People</label>
-                            <select class="form-control" name="people"
-                                    selected="<c:out value="${reservation.people}"/>">
+                            <form:select path="people">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -72,7 +69,8 @@
                                 <option value="8">8</option>
                                 <option value="9">9</option>
                                 <option value="10">10</option>
-                            </select>
+                            </form:select>
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -87,8 +85,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Note</label>
-                    <textarea name="note" rows="3" cols="12" class="form-control"><c:out
-                            value="${reservation.note}"/></textarea>
+                    <form:textarea path="note" rows="3" cols="12" cssClass="form-control"></form:textarea>
                 </div>
 
 
@@ -99,6 +96,22 @@
             </form:form>
             </form>
         </div>
+    </div>
+    <div class="row">
+        <h3>Reviews</h3>
+        <c:forEach items="${reviews}" var="review">
+            <div class="well">
+                <p class="text-info">${review.review}</p>
+                <c:if test="${review.as_anoniem == '1'}">
+                    <p class="text-right text-primary"> - Anoniem</p>
+                </c:if>
+
+                <c:if test="${review.as_anoniem != '1'}">
+                    <p class="text-right text-primary"> - ${review.name}</p>
+                </c:if>
+
+            </div>
+        </c:forEach>
     </div>
 </div>
 <footer>

@@ -6,7 +6,6 @@ import domain.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -32,20 +31,17 @@ public class ReservationsController {
      * @param bindingResult
      * @return
      */
-    @RequestMapping(value = "/add-reservation/{slug}", method = RequestMethod.POST)
-    public ModelAndView put(@Valid Reservation reservation, BindingResult bindingResult,  @PathVariable String slug) {
-        ModelAndView mv = new ModelAndView("reservation");
+    @RequestMapping(value = "/reservations/{slug}", method = RequestMethod.POST)
+    public ModelAndView put(@Valid Reservation reservation, BindingResult bindingResult, @PathVariable String slug) {
+        reservation.setRestaurant(facade.findRestaurantBySlug(slug));
+        ModelAndView mv = new ModelAndView("reservation", "command", reservation);
+
+        mv.addObject("reviews", facade.getReviewsFromWebservice(reservation.getRestaurant().getSlug()));
 
         if (bindingResult.hasErrors()) {
             mv.addObject("errors", bindingResult.getAllErrors());
-            mv.addObject("reservation", reservation);
-            reservation.setRestaurant(facade.findRestaurantBySlug(slug));
-            mv.addObject("reservation", reservation);
             return mv;
         }
-
-        reservation.setRestaurant(facade.findRestaurantBySlug(slug));
-
 
         facade.addReservation(reservation);
 
@@ -54,12 +50,14 @@ public class ReservationsController {
         return mv;
     }
 
+
     @RequestMapping(value = "/reservations/{slug}", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable String slug) {
-        ModelAndView mv = new ModelAndView("reservation");
+
         Reservation reservation = new Reservation();
         reservation.setRestaurant(facade.findRestaurantBySlug(slug));
-        mv.addObject("reservation", reservation);
+        ModelAndView mv = new ModelAndView("reservation", "command", reservation);
+        mv.addObject("reviews", facade.getReviewsFromWebservice(reservation.getRestaurant().getSlug()));
         return mv;
     }
 
