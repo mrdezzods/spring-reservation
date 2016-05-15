@@ -205,7 +205,6 @@
     </dependencies>
 
     <build>
-        <finalName>reservation</finalName>
         <plugins>
 
             <plugin>
